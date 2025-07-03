@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiman Bazli Bin Roslan | Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Neutral" -->
+    <!-- Application Structure Plan: The SPA uses a responsive layout with a fixed sidebar for desktop and a top navigation for mobile, allowing users to smoothly scroll to different content sections. This structure provides a clean, professional, and intuitive user experience, ideal for recruiters who need to quickly access key information. The main sections (Profile, Skills, Experience, Projects, Education) are logically organized to tell a compelling career story, starting broad and then diving into specific details and evidence of capabilities. -->
+    <!-- Visualization & Content Choices: Report Info: Skills categories (Technical, Professional Expertise, etc.) -> Goal: Compare and Inform -> Viz/Method: Interactive Radar Chart (Chart.js/Canvas) -> Interaction: Hover tooltips for clarity -> Justification: More engaging and visually informative than a static list, demonstrating a modern approach to self-presentation. Report Info: Career History -> Goal: Organize Chronologically -> Viz/Method: Vertical Timeline (HTML/CSS) -> Interaction: Hover effects -> Justification: Intuitive and visually clean way to display professional progression. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f5; /* stone-100 */
+            color: #27272a; /* zinc-800 */
+        }
+        .nav-link.active {
+            background-color: #16a34a; /* green-600 */
+            color: #ffffff;
+        }
+        .nav-link:hover {
+            background-color: #dcfce7; /* green-100 */
+            color: #166534; /* green-800 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row">
+        <!-- ==== SIDE NAVIGATION (Desktop) / TOP NAVIGATION (Mobile) ==== -->
+        <header class="bg-white md:w-64 md:min-h-screen md:flex md:flex-col md:fixed shadow-lg">
+            <div class="p-6 text-center border-b">
+                <h1 class="text-2xl font-bold text-green-700">Aiman Bazli</h1>
+                <p class="text-sm text-zinc-500 mt-1">Full-Stack Developer</p>
+            </div>
+            <nav class="flex-grow p-4 space-y-2 hidden md:block" id="desktop-nav">
+                <a href="#profile" class="nav-link block w-full text-left px-4 py-2 rounded-md font-medium text-zinc-600 transition-colors duration-200">Profile</a>
+                <a href="#skills" class="nav-link block w-full text-left px-4 py-2 rounded-md font-medium text-zinc-600 transition-colors duration-200">Skills</a>
+                <a href="#experience" class="nav-link block w-full text-left px-4 py-2 rounded-md font-medium text-zinc-600 transition-colors duration-200">Experience</a>
+                <a href="#projects" class="nav-link block w-full text-left px-4 py-2 rounded-md font-medium text-zinc-600 transition-colors duration-200">Projects</a>
+                <a href="#education" class="nav-link block w-full text-left px-4 py-2 rounded-md font-medium text-zinc-600 transition-colors duration-200">Education</a>
+                <a href="#contact" class="nav-link block w-full text-left px-4 py-2 rounded-md font-medium text-zinc-600 transition-colors duration-200">Contact</a>
+            </nav>
+            <div class="p-4 border-t hidden md:block">
+                 <a href="AIMAN-BAZLI-BIN-ROSLAN-FlowCV-Resume-20250622.pdf" download class="block w-full text-center bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-200">Download CV</a>
+            </div>
+        </header>
+
+        <!-- ==== MAIN CONTENT ==== -->
+        <main class="flex-1 md:ml-64 p-6 md:p-12">
+
+            <!-- == Profile Section == -->
+            <section id="profile" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold border-b-4 border-green-500 pb-2 mb-6">Profile</h2>
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <p class="text-lg leading-relaxed text-zinc-700">
+                        A results-oriented Netcentric Computing graduate who developed a full-stack "Student's Vehicle NFC Sticker Recognition System" using Laravel and JavaScript. My practical experience is further strengthened by a recent internship where I contributed to software testing, technical support, and documentation. I offer a proven blend of development and user-focused problem-solving skills to help deliver high-quality software.
+                    </p>
+                </div>
+            </section>
+
+            <!-- == Skills Section == -->
+            <section id="skills" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold border-b-4 border-green-500 pb-2 mb-6">Skills Snapshot</h2>
+                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                    <p class="mb-8 text-center text-zinc-600">This chart provides a visual overview of my core competencies, highlighting a balanced skill set across backend development, frontend technologies, and professional practices essential for delivering robust software solutions.</p>
+                    <div class="chart-container relative h-80 md:h-96 w-full max-w-2xl mx-auto">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- == Experience Section == -->
+            <section id="experience" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold border-b-4 border-green-500 pb-2 mb-6">Professional Experience</h2>
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <p class="mb-8 text-zinc-600">My professional journey began with hands-on experience in customer-facing roles, which developed my communication skills. This was followed by a comprehensive IT internship where I immersed myself in the software development lifecycle, from user support to quality assurance, providing me with a holistic understanding of the industry.</p>
+                    <div class="relative border-l-4 border-green-200">
+                        <!-- Internship -->
+                        <div class="mb-8 ml-8">
+                            <div class="absolute -left-4 mt-1.5 h-7 w-7 bg-green-500 rounded-full border-4 border-white"></div>
+                            <time class="mb-1 text-sm font-normal leading-none text-zinc-500">March 2025 – June 2025</time>
+                            <h3 class="text-xl font-semibold text-zinc-900">Internship in IT</h3>
+                            <p class="text-md font-medium text-zinc-700 mb-2">Rank Alpha Technologies Sdn Bhd | Puchong, Malaysia</p>
+                            <ul class="list-disc list-inside space-y-1 text-zinc-600">
+                                <li>Provided end-user support via calls/email and created tickets for technical teams.</li>
+                                <li>Conducted software testing and patch validation for in-house applications.</li>
+                                <li>Authored technical documentation, including SRS, test cases, and flowcharts.</li>
+                                <li>Managed software license renewals and used remote tools like AnyDesk to troubleshoot issues.</li>
+                            </ul>
+                        </div>
+                        <!-- Cashier -->
+                        <div class="ml-8">
+                            <div class="absolute -left-4 mt-1.5 h-7 w-7 bg-green-500 rounded-full border-4 border-white"></div>
+                            <time class="mb-1 text-sm font-normal leading-none text-zinc-500">Nov 2022 – Jan 2023</time>
+                            <h3 class="text-xl font-semibold text-zinc-900">Cashier</h3>
+                            <p class="text-md font-medium text-zinc-700 mb-2">Farmasi Zain Sdn Bhd | Shah Alam, Malaysia</p>
+                             <ul class="list-disc list-inside space-y-1 text-zinc-600">
+                                <li>Managed customer transactions and POS system reconciliation.</li>
+                                <li>Provided direct customer service and product assistance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- == Projects Section == -->
+            <section id="projects" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold border-b-4 border-green-500 pb-2 mb-6">Featured Project</h2>
+                 <div class="bg-white p-8 rounded-xl shadow-md">
+                    <p class="mb-8 text-zinc-600">This section highlights my capstone project, a comprehensive full-stack application that demonstrates my ability to take a complex problem from concept to a functional prototype, integrating both backend logic and hardware-based frontend technology.</p>
+                    <div class="bg-stone-50 p-6 rounded-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold text-green-700">Student's Vehicle NFC Sticker Recognition System</h3>
+                        <p class="mt-2 text-zinc-600">Led the development of a full-stack web application to enhance campus security by enabling auxiliary police to scan NFC stickers for vehicle identification and violation management. Engineered the system using the Laravel PHP framework for the backend and implemented the Web NFC API with JavaScript for the frontend scanning interface. This project delivered a functional prototype that demonstrated proficiency in full-stack development and integrating hardware-based APIs into a web environment.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Laravel</span>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">PHP</span>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">SQL</span>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Web NFC API</span>
+                        </div>
+                        <a href="https://github.com/Bazli211" target="_blank" class="inline-block mt-4 text-green-600 font-semibold hover:text-green-800 transition-colors">View on GitHub &rarr;</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- == Education Section == -->
+            <section id="education" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold border-b-4 border-green-500 pb-2 mb-6">Education</h2>
+                <div class="bg-white p-8 rounded-xl shadow-md grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-zinc-900">Bachelor of Computer Science (Hons.) Netcentric Computing</h3>
+                        <p class="text-md font-medium text-zinc-700">UiTM Arau, Perlis</p>
+                        <p class="text-sm text-zinc-500">March 2023 – June 2025</p>
+                        <p class="mt-2 text-zinc-600"><strong>CGPA:</strong> 3.49 / 4.0</p>
+                        <p class="text-zinc-600">Dean's List Recipient (Semesters 4, 5 & 6)</p>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-semibold text-zinc-900">Diploma in Computer Science</h3>
+                        <p class="text-md font-medium text-zinc-700">UiTM Merbok, Kedah</p>
+                        <p class="text-sm text-zinc-500">June 2017 – March 2020</p>
+                        <p class="mt-2 text-zinc-600"><strong>CGPA:</strong> 3.15 / 4.0</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- == Contact Section == -->
+            <section id="contact" class="scroll-mt-24">
+                 <h2 class="text-3xl font-bold border-b-4 border-green-500 pb-2 mb-6">Get In Touch</h2>
+                 <div class="bg-white p-8 rounded-xl shadow-md text-center">
+                    <p class="text-lg text-zinc-700 mb-6">I'm currently seeking new opportunities and would love to hear from you. Feel free to reach out via email or connect with me on social media.</p>
+                     <div class="flex justify-center items-center gap-4 flex-wrap">
+                        <a href="mailto:aimanbazli511@gmail.com" class="bg-green-600 text-white font-bold py-3 px-6 rounded-md hover:bg-green-700 transition-colors duration-200">Email Me</a>
+                        <a href="https://linkedin.com/in/aiman-bazli-bin-roslan-b6b94b282" target="_blank" class="bg-zinc-700 text-white font-bold py-3 px-6 rounded-md hover:bg-zinc-800 transition-colors duration-200">LinkedIn</a>
+                        <a href="https://github.com/Bazli211" target="_blank" class="bg-zinc-700 text-white font-bold py-3 px-6 rounded-md hover:bg-zinc-800 transition-colors duration-200">GitHub</a>
+                    </div>
+                 </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ==== SKILLS CHART ====
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Backend (Laravel, PHP)', 
+                        'Frontend (JS, HTML, CSS)', 
+                        'Databases (SQL)', 
+                        'Software Testing', 
+                        'Technical Support', 
+                        'Documentation (SRS)'
+                    ],
+                    datasets: [{
+                        label: 'Skill Proficiency',
+                        data: [8, 7, 7, 9, 8, 9],
+                        backgroundColor: 'rgba(22, 163, 74, 0.2)',
+                        borderColor: 'rgba(22, 163, 74, 1)',
+                        pointBackgroundColor: 'rgba(22, 163, 74, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(22, 163, 74, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: '500'
+                                },
+                                color: '#3f3f46'
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                stepSize: 2,
+                                max: 10,
+                                min: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // ==== ACTIVE NAV LINK HIGHLIGHTING ON SCROLL ====
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#desktop-nav a');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
